@@ -1,0 +1,1016 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Path's About:Blanker</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&amp;display=swap" rel="stylesheet"/>
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background: radial-gradient(ellipse at bottom, #0ff4 0%, #000 100%);
+        font-family: 'Orbitron', sans-serif;
+        color: #00f6ff;
+    }
+    canvas.rain { 
+        position: fixed; 
+        top: 0; left: 0; 
+        width: 100%; 
+        height: 100%; 
+        z-index: -1; 
+        background: linear-gradient(to bottom, #000022, #000000);
+    }
+    .footer {
+        position: fixed;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+        font-size: 1.6em;
+        color: #00f6ff;
+        text-shadow: 0 0 15px #00f6ff;
+    }
+    .links {
+        position: fixed;
+        bottom: 60px;
+        width: 100%;
+        text-align: center;
+    }
+    .links a {
+        margin: 0 10px;
+        padding: 14px 28px;
+        color: #00f6ff;
+        background: rgba(0,0,32,0.5);
+        border: 2px solid #00f6ff;
+        border-radius: 14px;
+        text-decoration: none;
+        font-weight: bold;
+        text-shadow: 0 0 10px #00f6ff;
+        transition: all 0.3s ease;
+    }
+    .links a:hover {
+        background: #00f6ff;
+        color: #000;
+        text-shadow: 0 0 15px #000;
+        transform: scale(1.1);
+        box-shadow: 0 0 25px #00f6ff;
+    }
+    .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #00f6ff;
+        text-shadow: 0 0 12px #00f6ff;
+    }
+    .container h1 {
+        font-size: 3em;
+        margin-bottom: 25px;
+    }
+    .container input {
+        padding: 12px 24px;
+        font-size: 1.3em;
+        width: 340px;
+        border: none;
+        border-radius: 10px;
+        outline: none;
+        text-align: center;
+        background-color: rgba(0, 0, 64, 0.6);
+        color: #00f6ff;
+        box-shadow: 0 0 10px #00f6ff;
+    }
+    .container button {
+        margin-top: 18px;
+        padding: 12px 26px;
+        font-size: 1.3em;
+        background: transparent;
+        color: #00f6ff;
+        border: 2px solid #00f6ff;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-shadow: 0 0 10px #00f6ff;
+    }
+    .container button:hover {
+        background: #00f6ff;
+        color: #000;
+        box-shadow: 0 0 25px #00f6ff;
+    }
+
+@keyframes neonBorder {
+    0% { box-shadow: 0 0 5px #0ff; }
+    50% { box-shadow: 0 0 20px #0ff; }
+    100% { box-shadow: 0 0 5px #0ff; }
+}
+
+.container input, .container button {
+    animation: neonBorder 2s infinite;
+}
+
+.sidebar-links {
+    margin-top: 20px;
+    text-align: center;
+}
+.sidebar-link {
+    display: inline-block;
+    margin: 6px;
+    padding: 10px 14px;
+    color: #00f6ff;
+    background: rgba(0,0,32,0.4);
+    border: 1px solid #00f6ff;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 0 0 10px #00f6ff;
+    transition: all 0.3s ease;
+}
+.sidebar-link:hover {
+    background: #00f6ff;
+    color: #000;
+    text-shadow: 0 0 12px #000;
+    box-shadow: 0 0 20px #00f6ff;
+}
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #00f6ff;
+    text-shadow: 0 0 12px #00f6ff;
+}
+
+
+/* Custom Scrollbar Styling for Sidebar */
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 64, 0.3);
+}
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: #00f6ff;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 246, 255, 0.5);
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background-color: #0ff;
+}
+
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/></head>
+<body>
+<canvas class="rain"></canvas>
+<div class="container">
+<h1>Path's About:Blanker</h1>
+<input id="urlInput" placeholder="Enter a URL (e.g., https://example.com)" type="text"/>
+<br/>
+<button onclick="launchAboutBlank()">Launch</button>
+<button onclick="document.getElementById('urlInput').value = ''" 
+        style="margin-left: 10px;" 
+        title="Clear URL">
+    <i class="fa fa-eraser"></i>
+</button>
+</div>
+
+<div class="footer">Thanks For Using!</div>
+<script>
+    function launchAboutBlank() {
+        const url = document.getElementById("urlInput").value;
+        if (!url) return alert("Please enter a URL.");
+        const code = '<script>location="' + url + '"<\/script>';
+        const newWin = window.open("about:blank");
+        newWin.document.write(code);
+        newWin.document.close();
+    }
+
+    const canvas = document.querySelector('canvas.rain');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    const drops = [];
+    let mouseX = 0;
+    let mouseY = 0;
+
+    for (let i = 0; i < 600; i++) {
+        drops.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            length: Math.random() * 30 + 10,
+            speed: Math.random() * 3 + 1.5
+        });
+    }
+
+    function draw() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+        ctx.fillRect(0, 0, width, height);
+
+        for (let drop of drops) {
+            ctx.fillStyle = "rgba(0,255,255,0.6)";
+            ctx.fillRect(drop.x, drop.y, 2, drop.length);
+        }
+
+        update();
+        requestAnimationFrame(draw);
+    }
+
+    function updateDropsWithMouseInfluence() {
+        for (let drop of drops) {
+            let dx = drop.x - mouseX;
+            let dy = drop.y - mouseY;
+            let dist = Math.sqrt(dx * dx + dy * dy);
+            let influence = Math.max(0, 100 - dist) / 100;
+            drop.x += influence * (Math.random() - 0.5) * 2;
+        }
+    }
+
+    function update() {
+        updateDropsWithMouseInfluence();
+        for (let drop of drops) {
+            drop.y += drop.speed;
+            if (drop.y > height) {
+                drop.y = -drop.length;
+                drop.x = Math.random() * width;
+            }
+        }
+    }
+
+    window.addEventListener("mousemove", e => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    window.addEventListener("resize", () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    });
+
+    draw();
+</script>
+<audio autoplay="True" loop="True" src="https://files.catbox.moe/yz2xg5.mp3" style="display:none;"></audio>
+<script type="text/javascript">
+    document.querySelector('button').onclick = function() {
+        var url = document.getElementById('urlInput').value;
+        if (url) {
+            var win = window.open();
+            win.document.body.style.margin = '0';
+            win.document.body.style.height = '100%';
+            var iframe = win.document.createElement('iframe');
+            iframe.style.border = 'none';
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.margin = '0';
+            iframe.src = url;
+            win.document.body.appendChild(iframe);
+        }
+    };
+</script>
+
+<style>
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 260px;
+        background-color: rgba(0, 0, 32, 0.7);
+        overflow-y: auto;
+        padding: 20px 10px;
+        color: #00f6ff;
+        font-family: 'Orbitron', sans-serif;
+        z-index: 10;
+    }
+
+    .sidebar h2 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        text-shadow: 0 0 10px #00f6ff;
+    }
+
+    .category-btn {
+        display: block;
+        width: 100%;
+        margin: 8px 0;
+        padding: 10px;
+        border: 1px solid #00f6ff;
+        background-color: transparent;
+        color: #00f6ff;
+        font-size: 1em;
+        text-align: left;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        text-shadow: 0 0 6px #00f6ff;
+    }
+
+    .category-btn:hover {
+        background-color: #00f6ff;
+        color: #000;
+        text-shadow: 0 0 10px #000;
+    }
+
+    .container {
+        left: calc(50% + 130px); /* Adjust for sidebar */
+    }
+
+.sidebar-links {
+    margin-top: 20px;
+    text-align: center;
+}
+.sidebar-link {
+    display: inline-block;
+    margin: 6px;
+    padding: 10px 14px;
+    color: #00f6ff;
+    background: rgba(0,0,32,0.4);
+    border: 1px solid #00f6ff;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 0 0 10px #00f6ff;
+    transition: all 0.3s ease;
+}
+.sidebar-link:hover {
+    background: #00f6ff;
+    color: #000;
+    text-shadow: 0 0 12px #000;
+    box-shadow: 0 0 20px #00f6ff;
+}
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #00f6ff;
+    text-shadow: 0 0 12px #00f6ff;
+}
+
+
+/* Custom Scrollbar Styling for Sidebar */
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 64, 0.3);
+}
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: #00f6ff;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 246, 255, 0.5);
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background-color: #0ff;
+}
+
+</style>
+<style>
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 260px;
+        background-color: rgba(0, 0, 32, 0.7);
+        overflow-y: auto;
+        padding: 10px;
+        color: #00f6ff;
+        font-family: 'Orbitron', sans-serif;
+        z-index: 10;
+    }
+    .sidebar h2 {
+        font-size: 1.4em;
+        margin: 10px 0;
+        text-align: center;
+        text-shadow: 0 0 10px #00f6ff;
+    }
+    .category-btn {
+        display: block;
+        width: 100%;
+        margin: 8px 0;
+        padding: 10px;
+        border: 1px solid #00f6ff;
+        background-color: transparent;
+        color: #00f6ff;
+        font-size: 1em;
+        text-align: left;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        text-shadow: 0 0 6px #00f6ff;
+    }
+    .category-btn:hover {
+        background-color: #00f6ff;
+        color: #000;
+        text-shadow: 0 0 10px #000;
+    }
+    .tab-nav {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px;
+    }
+    .tab-btn {
+        background: transparent;
+        border: 1px solid #00f6ff;
+        color: #00f6ff;
+        border-radius: 5px;
+        padding: 4px 10px;
+        cursor: pointer;
+        text-shadow: 0 0 8px #00f6ff;
+        transition: 0.2s;
+    }
+    .tab-btn:hover {
+        background: #00f6ff;
+        color: #000;
+        text-shadow: 0 0 10px #000;
+    }
+
+.sidebar-links {
+    margin-top: 20px;
+    text-align: center;
+}
+.sidebar-link {
+    display: inline-block;
+    margin: 6px;
+    padding: 10px 14px;
+    color: #00f6ff;
+    background: rgba(0,0,32,0.4);
+    border: 1px solid #00f6ff;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 0 0 10px #00f6ff;
+    transition: all 0.3s ease;
+}
+.sidebar-link:hover {
+    background: #00f6ff;
+    color: #000;
+    text-shadow: 0 0 12px #000;
+    box-shadow: 0 0 20px #00f6ff;
+}
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #00f6ff;
+    text-shadow: 0 0 12px #00f6ff;
+}
+
+
+/* Custom Scrollbar Styling for Sidebar */
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 64, 0.3);
+}
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: #00f6ff;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 246, 255, 0.5);
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background-color: #0ff;
+}
+
+</style>
+<style>
+    .sidebar {
+        position: fixed;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 240px;
+        background-color: rgba(0, 0, 64, 0.5);
+        border: 2px solid #00f6ff;
+        border-radius: 12px;
+        padding: 15px;
+        color: #00f6ff;
+        font-family: 'Orbitron', sans-serif;
+        box-shadow: 0 0 20px #00f6ff;
+        z-index: 10;
+    }
+    .sidebar h2 {
+        font-size: 1.4em;
+        margin: 10px 0;
+        text-align: center;
+        text-shadow: 0 0 10px #00f6ff;
+    }
+    .category-btn {
+        display: block;
+        width: 100%;
+        margin: 8px 0;
+        padding: 10px;
+        border: 1px solid #00f6ff;
+        background-color: transparent;
+        color: #00f6ff;
+        font-size: 1em;
+        text-align: left;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        text-shadow: 0 0 6px #00f6ff;
+    }
+    .category-btn:hover {
+        background-color: #00f6ff;
+        color: #000;
+        text-shadow: 0 0 10px #000;
+    }
+    .tab-nav {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    .tab-btn {
+        background: transparent;
+        border: 1px solid #00f6ff;
+        color: #00f6ff;
+        border-radius: 5px;
+        padding: 4px 10px;
+        cursor: pointer;
+        text-shadow: 0 0 8px #00f6ff;
+        transition: 0.2s;
+    }
+    .tab-btn:hover {
+        background: #00f6ff;
+        color: #000;
+        text-shadow: 0 0 10px #000;
+    }
+
+    .links {
+        position: fixed;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 5;
+    }
+
+.sidebar-links {
+    margin-top: 20px;
+    text-align: center;
+}
+.sidebar-link {
+    display: inline-block;
+    margin: 6px;
+    padding: 10px 14px;
+    color: #00f6ff;
+    background: rgba(0,0,32,0.4);
+    border: 1px solid #00f6ff;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 0 0 10px #00f6ff;
+    transition: all 0.3s ease;
+}
+.sidebar-link:hover {
+    background: #00f6ff;
+    color: #000;
+    text-shadow: 0 0 12px #000;
+    box-shadow: 0 0 20px #00f6ff;
+}
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #00f6ff;
+    text-shadow: 0 0 12px #00f6ff;
+}
+
+
+/* Custom Scrollbar Styling for Sidebar */
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 64, 0.3);
+}
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: #00f6ff;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 246, 255, 0.5);
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background-color: #0ff;
+}
+
+</style>
+<div class="sidebar">
+    <div class="tab-nav">
+        <button class="tab-btn" onclick="switchTab(-1)">&larr;</button>
+        <button class="tab-btn" onclick="switchTab(1)">&rarr;</button>
+    </div>
+    <h2 id="tabTitle">Load Proxys</h2>
+    <div id="categoryButtons"></div>
+<div class="sidebar-links">
+  <a href="https://www.youtube.com/@Beezap247" target="_blank" class="sidebar-link"><i class="fab fa-youtube"></i> YouTube</a>
+  <a href="https://discord.gg/gYZD97GU5V" target="_blank" class="sidebar-link"><i class="fab fa-discord"></i> Discord</a>
+</div>
+</div>
+<script>
+    const tabData = [
+        {
+            title: "Load Proxys",
+            categories: {
+                "Intersteller": [
+        "https://bees-r-cool.vercel.app",
+        "https://bees-love-honey.vercel.app",
+        "https://bees-hate-honey.vercel.app",
+        "https://bees-love-flying.vercel.app",
+        "https://bees-r-sigma.vercel.app"
+    ],
+                "Art Class": [
+                    "https://bees-r-cool.vercel.app",
+                    "https://bees-r-bad.vercel.app",
+                    "https://sciencehelpkidslearnfuture.vercel.app",
+                    "https://jacobsartclass.vercel.app/",
+                    "https://superhardmathandsciencequestions.vercel.app/",
+                    "https://homework-sigma-six.vercel.app/",
+                    "https://studymathandhomework.vercel.app/",
+                    "https://realhomework.vercel.app/"
+                ],
+                "Utopia (Has Ads)": [
+                    "https://lab.rules.aygenerji.com/",
+                    "https://facts.coach.globster.info/",
+                    "https://theme.gov.ethanbernard.com/",
+                    "https://math.theme.bernot.org/",
+                    "https://grade.real.robonauts.net/",
+                    "https://world.study.chaseinator.com/"
+                ],
+                "Rammerhead": [
+                    "https://bandogsfrom.peeinthesnow.com/",
+                    "https://pirate.wildsurf.net/",
+                    "https://packetyo.nanbang.com.tr/",
+                    "https://holaernesto.triplewipe.ru/",
+                    "https://jdsiojjifjis.oovb.com/",
+                    "https://dismantled.charbel.cl/",
+                    "https://vectorgpt.boxathome.net/",
+                    "https://femboysfr.lain.ch/",
+                    "https://theunionforever.tenspot.net/",
+                    "https://gothgirlsareawesome.flamex.hm/",
+                    "https://readmuvluv.happyforever.com/",
+                    "https://kozownoprxy.kozow.com/",
+                    "https://block.undo.cl/",
+                    "https://mylo.estic.org/"
+                ],
+                "Bolt": [
+                    "http://psjhddpnvw.webblu.com.br/",
+                    "http://neclcafxoz.expedicionesytrekking.com/",
+                    "http://evoodherne.mygadgets.com.ar/",
+                    "http://tywnuslecd.forss.to/",
+                    "http://junfwmbcps.reldas.com.ar/",
+                    "http://gecwhektlr.babyyoga.com.br/",
+                    "http://qnqmyytpfj.mkm.com.tr/",
+                    "http://bkroekznkb.theriens.com/",
+                    "http://caaqopbtew.ostrovsky.sk/",
+                    "http://ddtamppygi.wawrzek.name/",
+                    "http://groxlfiohk.fizicamedicala.ro/",
+                    "http://hmoidxbawl.dadyal.pk/",
+                    "http://lttundqtbn.barneysaurous.net/",
+                    "http://qcxhckoujz.federicospinosa.com.ar/",
+                    "http://sorjgwtlgb.fericean.ro/"
+                ],
+                "Space": [
+                    "https://foxes.fuzzylookups.com",
+                    "https://zuh.ndr.cl",
+                    "https://minionsandgru.grupopilar.cl",
+                    "https://encryption.madereramilano.com.ar",
+                    "https://ilikefeet.chickenkiller.com",
+                    "https://app.edu.iownyour.org",
+                    "https://edu.info.east-kazakhstan.su",
+                    "https://nrr.ne1.co",
+                    "https://luh.masgas.cl",
+                    "https://use.gurdit.com"
+                ],
+                "Shadow": [
+                    "https://key.vpn38.ru",
+                    "https://sushi.tosochilemat.cl",
+                    "https://silly.lindhesidan.se",
+                    "https://cozy.cuza16.ro",
+                    "https://curry.idemonch.cl",
+                    "https://shells.shokodeal.ru",
+                    "https://pigs.siglent.ru",
+                    "https://mercy.vtapeoplecounting.com",
+                    "https://diagnostics.zothow.com",
+                    "https://glitter.airgloor.ch",
+                    "https://status.emtbiceland.is"
+                ],
+                "Shuttle": [
+                    "https://nirbytexershutle.vercel.app/",
+                    "https://beautifullady4.vercel.app/",
+                    "https://kolaei.vercel.app/",
+                    "https://dixtermenixx.vercel.app/",
+                    "https://trixmatri2.vercel.app/",
+                    "https://unitedstar33.vercel.app/",
+                    "https://directunblock.vercel.app/",
+                    "https://trimletxtreme23.vercel.app/",
+                    "https://nefolie23.vercel.app/",
+                    "https://dengalingee.vercel.app/"
+                ],
+                "Doge Unblocker": [
+                    "https://mathisfunandstuff.vercel.app/",
+                    "https://realhomeworkthatismath.vercel.app",
+                    "https://studystuffthatsmath.vercel.app/"
+                ]
+            }
+        },
+        {
+            title: "Load Game Hubs",
+            categories: {
+                "Bee Hub": [
+                    "https://bees-love-to-game.vercel.app"
+                ],
+"totallyscience.co": [
+                    "https://totallyscience.co"
+                ],
+"quiz-30.pro": [
+                    "https://quiz-30.pro"
+                ],
+"minecraft": [
+                    "https://turtletown71.github.io/"
+                ],
+"emulater": [
+                    "https://binbashbanana.github.io/webretro/?core=autodetect"
+                ],
+"Str0ngDogXP": [
+                    "https://strongdog.de.com",
+                    "https://mathcord.de.com",
+                    "https://colute.net",
+                    "https://chesstube.eu.com",
+                    "https://gametree.net",
+                    "https://hateroll.com"
+                ],
+"venge.io": [
+                    "https://venge.io"
+                ],
+"ev.io": [
+                    "https://ev.io"
+                ],
+"word bomb": [
+                    "https://jklm.fun"
+                ],
+"explore old game maps": [
+                    "https://noclip.website"
+                ],
+"Play Retro Games Online, Has Ads": [
+                    "https://retrogames.onl"
+                ],
+"Play Some Retro Games, No Ads": [
+                    "https://playclassic.games"
+                ],
+"Sandbox Car Driving": [
+                    "https://slowroads.io"
+                ],
+"deadshot.io": [
+                    "https://deadshot.io"
+                ],
+"www.mathworklearning.co": [
+                    "https://www.mathworklearning.co"
+                ],
+"COD Zombies": [
+                    "https://nzp.gay"
+                ],
+            }
+        }
+    
+,{
+    title: "User Submitted Links",
+    categories: {}
+}
+
+];
+
+    let currentTab = 0;
+
+    
+    function renderTab() {
+        const tab = tabData[currentTab];
+        document.getElementById("tabTitle").textContent = tab.title;
+        const container = document.getElementById("categoryButtons");
+        container.innerHTML = "";
+
+        for (const [category, links] of Object.entries(tab.categories)) {
+            const btn = document.createElement("button");
+            btn.className = "category-btn";
+            btn.textContent = category;
+
+            btn.onclick = () => {
+                const randLink = links[Math.floor(Math.random() * links.length)];
+                document.getElementById("urlInput").value = randLink;
+            };
+
+            if (tab.title === "User Submitted Links") {
+                const delBtn = document.createElement("span");
+                delBtn.innerHTML = "🗑️";
+                delBtn.style.cssText = "float:right;cursor:pointer;padding-right:6px;";
+                delBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    delete tab.categories[category];
+                    localStorage.setItem("userLinks", JSON.stringify(tab.categories));
+                    renderTab();
+                };
+                btn.appendChild(delBtn);
+            }
+
+            container.appendChild(btn);
+        }
+    }
+
+
+    function switchTab(direction) {
+        currentTab = (currentTab + direction + tabData.length) % tabData.length;
+        renderTab();
+    }
+
+    renderTab();
+</script>
+
+
+<audio id="bgMusic" loop>
+    <source src="assets/hip_shop_gooseworx.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+<div id="musicControlWrapper" style="position: fixed; bottom: 20px; right: 20px; z-index: 20;">
+    <button id="musicToggle" title="Click to Play Music | Right Click for Volume"
+        style="background-color: rgba(0,0,32,0.6); border: 1px solid #00f6ff;
+               color: #00f6ff; padding: 10px 14px; border-radius: 10px;
+               font-family: 'Orbitron', sans-serif; text-shadow: 0 0 10px #00f6ff;
+               cursor: pointer;">
+        🎵 Music
+    </button>
+    <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="1"
+        style="display: none; margin-top: 8px; width: 100%; background: #00f6ff;">
+</div>
+<script>
+    const music = document.getElementById("bgMusic");
+    const slider = document.getElementById("volumeSlider");
+    const toggleBtn = document.getElementById("musicToggle");
+
+    let hasPlayed = false;
+
+    toggleBtn.addEventListener("click", () => {
+        if (!hasPlayed) {
+            music.play();
+            hasPlayed = true;
+        }
+    });
+
+    toggleBtn.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        slider.style.display = slider.style.display === "block" ? "none" : "block";
+    });
+
+    slider.addEventListener("input", () => {
+        music.volume = parseFloat(slider.value);
+    });
+</script>
+
+
+<style>
+    .custom-link-panel {
+        position: fixed;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 260px;
+        background-color: rgba(0, 0, 64, 0.5);
+        border: 2px solid #00f6ff;
+        border-radius: 12px;
+        padding: 15px;
+        color: #00f6ff;
+        font-family: 'Orbitron', sans-serif;
+        box-shadow: 0 0 20px #00f6ff;
+        z-index: 10;
+    }
+    .custom-link-panel h3 {
+        text-align: center;
+        text-shadow: 0 0 10px #00f6ff;
+        margin-bottom: 10px;
+    }
+    .custom-link-panel input {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 6px;
+        border-radius: 8px;
+        border: none;
+        background-color: rgba(0,0,32,0.8);
+        color: #00f6ff;
+        box-shadow: 0 0 6px #00f6ff;
+        font-family: 'Orbitron', sans-serif;
+    }
+    .custom-link-panel button {
+        width: 100%;
+        padding: 8px;
+        border-radius: 8px;
+        background-color: transparent;
+        border: 1px solid #00f6ff;
+        color: #00f6ff;
+        cursor: pointer;
+        transition: 0.3s;
+        font-family: 'Orbitron', sans-serif;
+        text-shadow: 0 0 6px #00f6ff;
+    }
+    .custom-link-panel button:hover {
+        background-color: #00f6ff;
+        color: #000;
+    }
+
+@media screen and (max-width: 768px) {
+    .container {
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+
+    .container h1 {
+        font-size: 1.8em;
+    }
+
+    .container input,
+    .container button {
+        font-size: 1em;
+        width: 90%;
+        max-width: 300px;
+        margin: 10px auto;
+    }
+
+    .sidebar,
+    .custom-link-panel {
+        position: static;
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+        transform: none;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .sidebar .tab-nav {
+        justify-content: center;
+    }
+
+    .sidebar .category-btn {
+        font-size: 0.9em;
+    }
+
+    #musicControlWrapper {
+        right: 10px;
+        bottom: 10px;
+        left: 10px;
+        text-align: center;
+    }
+}
+
+</style>
+<div class="custom-link-panel">
+    <h3>Add Link</h3>
+        <input id="customLinkTitle" placeholder="Title (e.g., My Cool Site)">
+    <input id="customLinkUrl" placeholder="URL (e.g., https://example.com)">
+    <button onclick="addCustomLink()">Submit</button>
+</div>
+
+
+
+<script>
+    function addCustomLink() {
+        const title = document.getElementById("customLinkTitle").value.trim();
+        const url = document.getElementById("customLinkUrl").value.trim();
+
+        if (!title || !url) {
+            alert("Please fill in both the title and URL.");
+            return;
+        }
+
+        const userTab = tabData.find(t => t.title === "User Submitted Links");
+        if (!userTab.categories[title]) {
+            userTab.categories[title] = [url];
+        } else {
+            userTab.categories[title].push(url);
+        }
+
+        localStorage.setItem("userLinks", JSON.stringify(userTab.categories));
+        renderTab();
+        alert("Link added to User Submitted Links!");
+    }
+
+    window.addEventListener("load", () => {
+        const savedLinks = localStorage.getItem("userLinks");
+        if (savedLinks) {
+            const userTab = tabData.find(t => t.title === "User Submitted Links");
+            userTab.categories = JSON.parse(savedLinks);
+            renderTab();
+        }
+    });
+</script>
+
+</body>
+</html>
